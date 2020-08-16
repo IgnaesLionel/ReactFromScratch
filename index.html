@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React from scratch</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <!-- <script src="index.js"></script> -->
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.23.1/babel.js"</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.23.1/babel.min.js"</script>
+    </head>
+  <body>
+
+<div id="react-root1"></div>
+<div id="react-root2"></div>
+<div id="react-root3"></div>
+<div id="react-root4"></div>
+<div id="react-root5"></div>
+<div id="react-root6"></div>
+<div id="react-root7"></div>
+<div id="react-root8"></div>
+<div id="react-root9"></div>
+
+<!--  utilisation de React sans JSX -->
+<script>
+ReactDOM.render(
+  React.createElement('h1', null, 'Affichage React sans JSX '),
+  document.getElementById('react-root1')
+  )
+</script>
+
+<!-- utilisation de babel pour le JSX-->
+<script type="text/babel">
+  ReactDOM.render(
+  <h1>Affichage React en JSX avec Babel</h1>,
+  document.getElementById('react-root2'))
+</script>
+
+<!-- utilisation d'une class composent, toujours un render et un return -->
+<script type="text/babel">
+class Bonjour extends React.Component{
+  render(){
+    return (
+    <div>
+      <h1> Affichage React d'une class Component</h1>
+    </div>
+    )
+  }
+}
+ReactDOM.render(
+<Bonjour/>,
+document.getElementById('react-root3'))
+</script>
+
+<!--  utilisation un composant fonctionel -->
+<script type="text/babel">
+const Bonjour = () => (<h1> Affichage React d'un composant fonctionelle </h1>)
+ReactDOM.render(
+<Bonjour />,
+document.getElementById('react-root4')
+)
+</script>
+
+<!-- utilisation une classe component avec props string et number -->
+<script type="text/babel">
+class BonjourClass extends React.Component{
+  render(){
+    return (
+    <div>
+      <h1> {this.props.message}</h1>
+      <p> Version = {this.props.version}
+        </p>
+    </div>
+    )
+  }
+}
+ReactDOM.render(
+<BonjourClass message="Affichage classe avec props string et number" version={16}/>,
+document.getElementById('react-root5'))
+</script>
+
+<!-- Affichage React un composant fonctionnel avec props -->
+
+<script type="text/babel">
+const Bonjour2 = (props) => (
+<div>
+  <h1> {props.message}</h1>
+  <p> Version = {props.version}
+    </p>
+</div>
+)
+ReactDOM.render(
+<Bonjour2 message="Affichage composant fonctionelle et props" version={16}/>,
+document.getElementById('react-root6')
+)
+</script>
+
+<!-- Destructuring -->
+<script type="text/babel">
+const Bonjour3 = ({message, version}) => (
+<div>
+  <h1> {message}</h1>
+  <p> Version = {version}
+    </p>
+</div>
+)
+ReactDOM.render(
+<Bonjour3 message="Destructuring" version={16}/>,
+document.getElementById('react-root7')
+)
+</script>
+
+<!-- Utilisation des states, passe les props à react.component avec super -->
+<script type="text/babel">
+class BonjourClass2 extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      name:"Lionel"
+    }
+
+  }
+  render(){
+    return (
+    <div>
+      <h1> {this.props.message}</h1>
+      <p> {this.state.name} Version = {this.props.version}
+        </p>
+    </div>
+    )
+  }
+}
+ReactDOM.render(
+<BonjourClass2 message="Affichage class avec props et state" version={16}/>,
+document.getElementById('react-root8'))
+</script>
+
+<!-- input-> onChange -> handleChange -> modif state -> render -->
+<!-- bind de handleChange avec le constructor,évite le undefined-->
+<script type="text/babel">
+class BonjourClass3 extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      name:"Lionel"
+    }
+    this.handleChange =  this.handleChange.bind(this)
+  }
+
+  handleChange(e){
+    this.setState({
+      name : e.target.value
+    })
+  }
+
+  render(){
+    return (
+    <div>
+      <h1> {this.props.message}</h1>
+      <p> {this.state.name} Version = {this.props.version} </p>
+      <p> <input type='text' value={this.state.name} onChange={this.handleChange}/> </p>
+    </div>
+    )
+  }
+}
+ReactDOM.render(
+<BonjourClass3 message="Affichage class avec props, state et input qui modifie le state" version={16}/>,
+document.getElementById('react-root9'))
+</script>
+
+</body>
+</html>
